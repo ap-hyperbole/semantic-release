@@ -32,6 +32,16 @@ test('The "publish" plugin output, if defined, must be an object', t => {
   t.true(plugins.publish.outputValidator(''));
 });
 
+test('The "addChannel" plugin output, if defined, must be an object', t => {
+  t.false(plugins.addChannel.outputValidator(1));
+  t.false(plugins.addChannel.outputValidator('string'));
+
+  t.true(plugins.addChannel.outputValidator({}));
+  t.true(plugins.addChannel.outputValidator());
+  t.true(plugins.addChannel.outputValidator(null));
+  t.true(plugins.addChannel.outputValidator(''));
+});
+
 test('The "generateNotes" plugins output are concatenated with separator', t => {
   t.is(plugins.generateNotes.postprocess(['note 1', 'note 2']), `note 1${RELEASE_NOTES_SEPARATOR}note 2`);
   t.is(plugins.generateNotes.postprocess(['', 'note']), 'note');
